@@ -73,7 +73,7 @@ helm upgrade --install kubecost \
   --repo https://kubecost.github.io/cost-analyzer/ cost-analyzer \
   --namespace kubecost --create-namespace
 k get pod -n kubecost -w
-kubectl port-forward --namespace kubecost deployment/kubecost-cost-analyzer 9080:9090
+
 kubectl get secret --namespace kubecost kubecost-grafana -o jsonpath="{.data.admin-password}" | base64 --decode ; echo
 ```
 # grafana user name and password
@@ -81,5 +81,8 @@ username: admin
 
 password: strongpassword
 # kubecost URl and grafana
-http://127.0.0.1:9080 
+```
+kubectl port-forward --namespace kubecost deployment/kubecost-cost-analyzer 9080:9090
+```
+http://127.0.0.1:9080/overview
 http://127.0.0.1:9080/grafana/?orgId=1
